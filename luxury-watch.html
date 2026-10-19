@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Maison Aurelia — Chronometer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--gold:#c9a96a;--ivory:#efe7d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:#000;color:var(--ivory);font-family:"Cormorant Garamond",Georgia,serif;display:flex;align-items:center;justify-content:center}
+.stage{width:97%;margin:0 auto;min-height:92vh;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#15110a 0%,#000 62%);border:1px solid #2a2415;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem 1rem}
+svg{width:min(78vw,520px);height:auto;filter:drop-shadow(0 30px 60px rgba(201,169,106,.18))}
+h1{margin:0;font-weight:300;font-size:clamp(1.8rem,5vw,3.6rem);letter-spacing:.18em;color:var(--gold);text-align:center}
+p{margin:0;font-weight:300;font-size:clamp(1rem,2vw,1.3rem);letter-spacing:.08em;color:#a89c82;text-align:center}
+.glint{animation:glint 7s ease-in-out infinite}
+@keyframes glint{0%,55%{transform:translateX(-260px)}85%,100%{transform:translateX(260px)}}
+@media (prefers-reduced-motion:reduce){.glint{animation:none;opacity:0}}
+</style>
+</head>
+<body>
+<main class="stage">
+<svg viewBox="0 0 400 520" role="img" aria-label="Luxury wristwatch with live time">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2dca0"/><stop offset=".5" stop-color="#b8924a"/><stop offset="1" stop-color="#6e5420"/></linearGradient>
+    <radialGradient id="dial" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#0f3a2b"/><stop offset="1" stop-color="#04150f"/></radialGradient>
+    <linearGradient id="strap" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#120d08"/><stop offset=".5" stop-color="#2a1d12"/><stop offset="1" stop-color="#120d08"/></linearGradient>
+    <clipPath id="crystal"><circle cx="200" cy="260" r="128"/></clipPath>
+  </defs>
+  <path d="M150 20h100l12 140H138z" fill="url(#strap)"/>
+  <path d="M138 360h124l-12 140H150z" fill="url(#strap)"/>
+  <rect x="352" y="244" width="22" height="32" rx="5" fill="url(#gold)"/>
+  <circle cx="200" cy="260" r="160" fill="url(#gold)"/>
+  <circle cx="200" cy="260" r="146" fill="#0a0804"/>
+  <circle cx="200" cy="260" r="140" fill="url(#gold)"/>
+  <circle cx="200" cy="260" r="130" fill="url(#dial)"/>
+  <g id="ticks"></g>
+  <g id="nums" fill="#efe7d6" font-family="Cormorant Garamond, Georgia, serif" font-size="26" text-anchor="middle"></g>
+  <text x="200" y="215" text-anchor="middle" fill="#c9a96a" font-family="Cormorant Garamond, Georgia, serif" font-size="14" letter-spacing="4">AURELIA</text>
+  <text x="200" y="312" text-anchor="middle" fill="#c9a96a" font-family="Cormorant Garamond, Georgia, serif" font-size="9" letter-spacing="3">CHRONOMETER</text>
+  <g id="hour"><path d="M196 260v-62l4-10 4 10v62z" fill="url(#gold)"/></g>
+  <g id="min"><path d="M197.5 260v-98l2.5-8 2.5 8v98z" fill="url(#gold)"/></g>
+  <g id="sec"><rect x="199.2" y="150" width="1.6" height="130" fill="#e9c98a"/><circle cx="200" cy="260" r="4" fill="#e9c98a"/></g>
+  <circle cx="200" cy="260" r="2.5" fill="#000"/>
+  <g clip-path="url(#crystal)"><rect class="glint" x="150" y="120" width="40" height="280" fill="#fff" opacity=".13" transform="skewX(-18)"/></g>
+</svg>
+<h1>MAISON AURELIA</h1>
+<p>Swiss movement. 18k gold. Made to last generations.</p>
+</main>
+<script>
+(function(){
+  var ns="http://www.w3.org/2000/svg",t=document.getElementById("ticks"),n=document.getElementById("nums");
+  for(var i=0;i<60;i++){
+    var big=i%5===0,l=document.createElementNS(ns,"line");
+    l.setAttribute("x1",200);l.setAttribute("x2",200);
+    l.setAttribute("y1",260-124);l.setAttribute("y2",260-(big?108:116));
+    l.setAttribute("stroke",big?"#c9a96a":"#7d6a42");l.setAttribute("stroke-width",big?3:1);
+    l.setAttribute("transform","rotate("+i*6+" 200 260)");t.appendChild(l);
+  }
+  [12,3,6,9].forEach(function(h){
+    var a=h*30*Math.PI/180,x=200+Math.sin(a)*88,y=260-Math.cos(a)*88+9;
+    var tx=document.createElementNS(ns,"text");
+    tx.setAttribute("x",x);tx.setAttribute("y",y);tx.textContent=h;n.appendChild(tx);
+  });
+  var H=document.getElementById("hour"),M=document.getElementById("min"),S=document.getElementById("sec");
+  function tick(){
+    var d=new Date(),ms=d.getMilliseconds(),s=d.getSeconds()+ms/1000,m=d.getMinutes()+s/60,h=(d.getHours()%12)+m/60;
+    H.setAttribute("transform","rotate("+h*30+" 200 260)");
+    M.setAttribute("transform","rotate("+m*6+" 200 260)");
+    S.setAttribute("transform","rotate("+s*6+" 200 260)");
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+</body>
+</html>

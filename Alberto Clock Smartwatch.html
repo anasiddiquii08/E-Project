@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alberto Clock Smartwatch</title>
+<style>
+html,body{height:100%;margin:0;overflow:hidden;background:#000}
+body{display:flex;align-items:center;justify-content:center;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#fff}
+.stage{width:97%;height:96vh;position:relative;background:radial-gradient(ellipse at 50% 42%,#0d1a22 0%,#000 65%);border:1px solid #1b2a33;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:2vh 1rem 3vh;box-sizing:border-box;overflow:hidden}
+svg{height:78vh;max-width:90%;width:auto;filter:drop-shadow(0 20px 50px rgba(0,200,255,.22))}
+h1{margin:0;font-weight:300;font-size:clamp(1.4rem,4.2vh,2.6rem);letter-spacing:.3em;color:#9fe7ff;text-align:center}
+.ring{transform-origin:100px 100px;transform:rotate(-90deg);animation:fill 2.4s ease-out forwards}
+@keyframes fill{from{stroke-dashoffset:var(--len)}to{stroke-dashoffset:var(--off)}}
+.beat{transform-origin:50% 50%;animation:beat 1s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
+.glint{animation:glint 6s ease-in-out infinite}
+@keyframes glint{0%,60%{transform:translateX(-300px)}90%,100%{transform:translateX(300px)}}
+@media (prefers-reduced-motion:reduce){.beat,.glint{animation:none}.glint{opacity:0}}
+</style>
+</head>
+<body>
+<main class="stage">
+<svg viewBox="0 0 300 420" role="img" aria-label="Smartwatch showing live time">
+  <defs>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0b0f12"/><stop offset=".5" stop-color="#1c262c"/><stop offset="1" stop-color="#0b0f12"/></linearGradient>
+    <linearGradient id="case" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dfe6ea"/><stop offset=".5" stop-color="#7d8a92"/><stop offset="1" stop-color="#3a444a"/></linearGradient>
+    <clipPath id="scr"><rect x="50" y="110" width="200" height="200" rx="46"/></clipPath>
+  </defs>
+  <path d="M105 0h90l8 120H97z" fill="url(#band)"/>
+  <path d="M97 300h106l-8 120h-90z" fill="url(#band)"/>
+  <rect x="246" y="180" width="14" height="44" rx="6" fill="url(#case)"/>
+  <rect x="246" y="236" width="8" height="30" rx="4" fill="#5a666d"/>
+  <rect x="38" y="98" width="224" height="224" rx="58" fill="url(#case)"/>
+  <rect x="46" y="106" width="208" height="208" rx="52" fill="#000"/>
+  <g clip-path="url(#scr)">
+    <rect x="50" y="110" width="200" height="200" fill="#04080a"/>
+    <g transform="translate(50 110)">
+      <text x="100" y="26" text-anchor="middle" fill="#8aa0aa" font-size="13" id="date">THU 1 OCT</text>
+      <text x="100" y="95" text-anchor="middle" fill="#fff" font-size="58" font-weight="300" id="time">10:09</text>
+      <text x="100" y="116" text-anchor="middle" fill="#9fe7ff" font-size="13" id="sec">00</text>
+      <g transform="translate(20 130)">
+        <circle cx="30" cy="30" r="24" fill="none" stroke="#13222a" stroke-width="7"/>
+        <circle class="ring" cx="30" cy="30" r="24" fill="none" stroke="#ff3b6b" stroke-width="7" stroke-linecap="round" stroke-dasharray="150.8" style="--len:150.8;--off:34;stroke-dashoffset:34;transform-origin:30px 30px"/>
+        <circle cx="30" cy="30" r="14" fill="none" stroke="#13222a" stroke-width="7"/>
+        <circle class="ring" cx="30" cy="30" r="14" fill="none" stroke="#9dff4f" stroke-width="7" stroke-linecap="round" stroke-dasharray="88" style="--len:88;--off:22;stroke-dashoffset:22;transform-origin:30px 30px"/>
+      </g>
+      <g transform="translate(95 138)">
+        <path class="beat" d="M10 8c-5-7-16 0-10 9l10 11 10-11c6-9-5-16-10-9z" fill="#ff3b6b"/>
+        <text x="30" y="20" fill="#fff" font-size="20" id="bpm">72</text>
+        <text x="30" y="36" fill="#8aa0aa" font-size="10">BPM</text>
+        <text x="0" y="56" fill="#fff" font-size="14" id="steps">8,214</text>
+        <text x="52" y="56" fill="#8aa0aa" font-size="10">steps</text>
+      </g>
+    </g>
+    <rect class="glint" x="90" y="100" width="36" height="230" fill="#fff" opacity=".08" transform="skewX(-18)"/>
+  </g>
+</svg>
+<h1>ALBERTO CLOCK</h1>
+</main>
+<script>
+(function(){
+  var D=["SUN","MON","TUE","WED","THU","FRI","SAT"],M=["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+  var t=document.getElementById("time"),s=document.getElementById("sec"),d=document.getElementById("date"),b=document.getElementById("bpm"),st=document.getElementById("steps");
+  var steps=8214;
+  function p(n){return n<10?"0"+n:""+n}
+  function tick(){
+    var n=new Date();
+    t.textContent=p(n.getHours())+":"+p(n.getMinutes());
+    s.textContent=p(n.getSeconds());
+    d.textContent=D[n.getDay()]+" "+n.getDate()+" "+M[n.getMonth()];
+  }
+  tick();setInterval(tick,250);
+  setInterval(function(){b.textContent=70+Math.floor(Math.random()*7)},2000);
+  setInterval(function(){steps+=Math.floor(Math.random()*4);st.textContent=steps.toLocaleString("en-US")},1500);
+})();
+</script>
+</body>
+</html>

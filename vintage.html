@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Watch | Alberto Clock</title>
+     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⌚</text></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<style>
+    .color {
+        background-color: black;
+
+    }
+
+    .navbar-nav {
+        font-size: 22px;
+        gap: 13px;
+        padding-left: 40px;
+
+    }
+
+    .navbar-brand {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+
+    .navbar {
+        background-color: #212529;
+        /* font-weight: bold; */
+        height: 70px;
+        margin-top: -6px;
+        /* sticky navbar + scroll effect */
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+    }
+
+    .navbar.scrolled {
+        background-color: rgba(18, 18, 18, 0.96);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    .nav-item a {
+        color: grey;
+        font-size: 20px;
+        padding-bottom: 3px;
+
+    }
+
+    .nav-item a:hover {
+        color: wheat;
+
+    }
+
+    #head {
+        background-color: black;
+        border: none;
+        color: bisque;
+        font-weight: bold;
+        margin-top: 60px;
+        text-align: center;
+        font-size: 33px;
+        font-family: Arial, Helvetica, sans-serif;
+
+    }
+
+    .row {
+        background-color: black;
+        color: white;
+        border: none !important;
+        border-radius: 10px;
+    }
+
+    #move {
+
+        margin-top: 6px !important;
+    }
+
+
+    .position-relative img {
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1) 0s;
+        ;
+    }
+
+    .position-relative img:hover {
+        transform: scale(1.02);
+        /* border: auto; */
+    }
+
+    #move {
+        animation: updown 2s ease-in-out infinite;
+        margin-top: 6px !important;
+    }
+
+
+    @keyframes updown {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    .border {
+        border: none !important;
+        border-radius: 10px;
+        background-color: #1E1E1E;
+        color: white;
+    }
+
+    .star {
+        margin-top: -15px;
+    }
+
+    .rs {
+        margin-top: -10px;
+        color: goldenrod;
+        font-weight: bolder;
+        /* font-size: 16px; */
+        cursor: pointer;
+
+    }
+
+    .btn {
+        text-align: center;
+        width: 80%;
+        margin-left: 30px;
+
+    }
+
+    .btn:hover {
+        color: goldenrod;
+        font-weight: bolder;
+    }
+
+    .card-text {
+        color: beige
+    }
+   .carousel-item {
+    opacity: 0;
+    transform: translateY(80px);
+    transition: all 1.2s ease;
+}
+
+.carousel-item.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        margin-top: 10px;
+    }
+
+    .pagination a {
+        background-color: black;
+        color: white;
+        border: none;
+    }
+
+    .pagination a:hover {
+        background-color: wheat;
+        color: brown;
+    }
+
+    .logo {
+        width: 150px;
+        height: 70px;
+        object-fit: contain;
+
+    }
+
+    .footer {
+        background: #111;
+        color: white;
+        padding: 50px 7% 20px;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        gap: 50px;
+    }
+
+    .footer-info {
+        width: 40%;
+    }
+
+    .footer-info h2 {
+        letter-spacing: 5px;
+        margin-bottom: 20px;
+    }
+
+    .footer-info h4 {
+        margin-top: 30px;
+    }
+
+    .footer-info a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .footer-map {
+        width: 50%;
+    }
+
+    .footer-map h3 {
+        margin-bottom: 15px;
+    }
+
+    .footer-map iframe {
+        width: 100%;
+        height: 250px;
+        border: none;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        border-top: 1px solid #333;
+        margin-top: 40px;
+        padding-top: 20px;
+        color: #aaa;
+    }
+
+    /* ---------- New: navbar tools (search + cart) ---------- */
+    .nav-tools {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .search-box {
+        width: 210px;
+        background-color: #2b3035;
+        border: 1px solid #3a4046;
+        color: white;
+        border-radius: 20px;
+        padding-left: 14px;
+    }
+
+    .search-box:focus {
+        background-color: #2b3035;
+        color: white;
+        border-color: goldenrod;
+        box-shadow: 0 0 0 0.15rem rgba(218, 165, 32, 0.25);
+    }
+
+    .search-box::placeholder {
+        color: #8a9097;
+    }
+
+    .cart-btn {
+        position: relative;
+        background: transparent;
+        border: 1px solid #3a4046;
+        color: white;
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: border-color 0.2s ease;
+    }
+
+    .cart-btn:hover {
+        border-color: goldenrod;
+    }
+
+    .cart-count {
+        display: inline-block;
+        min-width: 22px;
+        padding: 0 6px;
+        margin-left: 4px;
+        border-radius: 11px;
+        background: goldenrod;
+        color: black;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .cart-count.bump {
+        animation: bump 0.4s ease;
+    }
+
+    @keyframes bump {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.5); }
+        100% { transform: scale(1); }
+    }
+
+    /* ---------- New: wishlist heart ---------- */
+    .wish-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 38px;
+        height: 38px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.55);
+        color: white;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        z-index: 2;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .wish-btn:hover {
+        transform: scale(1.12);
+    }
+
+    .wish-btn.active {
+        color: #ff4d6d;
+    }
+
+    /* ---------- New: modals ---------- */
+    .dark-modal {
+        background-color: #1E1E1E;
+        color: white;
+        border: 1px solid #333;
+        border-radius: 12px;
+    }
+
+    .dark-modal .modal-header,
+    .dark-modal .modal-footer {
+        border-color: #333;
+    }
+
+    /* undo the global .btn width/margin inside modals and toasts */
+    .modal .btn,
+    .toast .btn {
+        width: auto;
+        margin-left: 0;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        align-items: center;
+    }
+
+    .detail-grid img {
+        width: 100%;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .detail-price {
+        color: goldenrod;
+        font-weight: bolder;
+        font-size: 26px;
+    }
+
+    .cart-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid #333;
+    }
+
+    .cart-item:last-child {
+        border-bottom: none;
+    }
+
+    .cart-item img {
+        width: 64px;
+        height: 64px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .cart-item-info {
+        flex: 1;
+    }
+
+    .cart-item-price {
+        color: goldenrod;
+        font-size: 14px;
+    }
+
+    .qty-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid #555;
+        background: transparent;
+        color: white;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .qty-btn:hover {
+        border-color: goldenrod;
+        color: goldenrod;
+    }
+
+    /* ---------- New: no results + scroll to top ---------- */
+    #noResults {
+        display: none;
+        text-align: center;
+        color: #aaa;
+        font-size: 20px;
+        padding: 60px 0;
+    }
+
+    #scrollTopBtn {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        width: 48px;
+        height: 48px;
+        border: none;
+        border-radius: 50%;
+        background: goldenrod;
+        color: black;
+        font-size: 22px;
+        font-weight: bold;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    #scrollTopBtn.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    @media screen and (max-width: 768px) {
+        .footer-content {
+            flex-direction: column;
+        }
+
+        .footer-info,
+        .footer-map {
+            width: 100%;
+        }
+
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ---------- Responsive navbar ---------- */
+    /* the old fixed 70px height clipped the menu once it opened on phones */
+    .navbar {
+        height: auto;
+        min-height: 70px;
+    }
+
+    .navbar .cart-btn {
+        margin-left: 14px;
+    }
+
+    /* desktop: logo | links ... search | cart */
+    @media (min-width: 992px) {
+        .navbar .navbar-collapse {
+            order: 2;
+        }
+
+        .navbar .cart-btn {
+            order: 3;
+        }
+    }
+
+    /* tablet and phone: logo ... cart + hamburger, menu opens underneath */
+    @media (max-width: 991.98px) {
+        .navbar {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .navbar .logo {
+            width: 120px;
+            height: 56px;
+        }
+
+        .navbar .cart-btn {
+            margin-left: auto;
+            margin-right: 12px;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .navbar-collapse {
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+        }
+
+        .navbar-nav {
+            font-size: 18px;
+            gap: 0;
+            padding-left: 0;
+            margin: 12px 0 8px;
+        }
+
+        .navbar-nav .nav-item a {
+            font-size: 18px;
+            padding: 10px 4px;
+            border-bottom: 1px solid #2f343a;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: #1a1d20;
+            border: 1px solid #333;
+            margin: 6px 0 10px;
+        }
+
+        .navbar-nav .dropdown-item {
+            font-size: 16px;
+            padding: 9px 14px;
+            border-bottom: none;
+        }
+
+        .nav-tools {
+            width: 100%;
+            margin: 4px 0 12px;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+    }
+</style>
+
+<body>
+    <div class="color">
+        <!-- navbar -->
+        <nav class="navbar navbar-expand-lg" data-bs-theme="dark">
+            <div class="container-fluid">
+                <img src="logo (2).png" alt="" class="logo">
+                <button type="button" class="cart-btn" id="cartBtn" aria-label="Open cart">🛒<span class="cart-count" id="cartCount">0</span></button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About Us</a>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Products
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="smart.html">Smart Watch</a></li>
+                                <li><a class="dropdown-item" href="luxury.html">Luxury Watch</a></li>
+                                <li><a class="dropdown-item" href="vintage.html">Vintage Watch</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="features.html"> Features </a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Contact Us</a>
+                        </li>
+                    </ul>
+
+                    <!-- search -->
+                    <div class="nav-tools">
+                        <input type="search" id="searchInput" class="form-control form-control-sm search-box"
+                            placeholder="Search watches..." aria-label="Search watches" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- video -->
+        <div class="card" style="background-color: black; border: none; overflow: hidden;">
+            <iframe src="alberto-retro-digital-watch.html" width="100%" height="700px"
+                style="border: none; display: block; background-color: black;">
+            </iframe>
+        </div>
+        <div class="alert alert-dark" role="alert" id="head">
+            VINTAGE WATCHES
+        </div>
+        <div id="hotItems" class="carousel slide">
+
+            <div class="carousel-inner ">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active">
+                    <div class="row g-4 m-auto ">
+                        <!-- 1-->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width: 90%; ">
+                                <div class="position-relative">
+
+                                    <img src="vintage1.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+                                <div class="card-body p-3">
+                                    <h5 class="card-title"> Royal Vintage</h5>
+                                    <p class="card-text">
+                                        Classic & elegant | Perfect for timeless style.
+                                    </p>
+                                    <p class="star"> ⭐⭐⭐ 3.0</p>
+                                    <p class="rs">RS. 13,000</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 2 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width:  90%;">
+                                <div class="position-relative">
+
+                                    <img src="vintage2.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+
+                                <div class="card-body p-3">
+                                    <h5 class="card-title"> Silver Classic</h5>
+                                    <p class="card-text">
+                                        Rich & stylish | Made for a luxury look.
+                                    </p>
+                                    <p class="star"> ⭐⭐⭐⭐⭐ 5.0</p>
+                                    <p class="rs">RS.10,000</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 3-->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width:  90%;">
+                                <div class="position-relative">
+
+                                    <img src="vintage3.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+
+                                <div class="card-body p-3">
+                                    <h5 class="card-title">Retro Time</h5>
+                                    <p class="card-text">
+                                        Simple & vintage | Perfect for daily wear.
+                                    </p>
+                                    <p class="star"> ⭐⭐⭐ 3.0</p>
+                                    <p class="rs">RS.10,000</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 4 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width:  90%;">
+                                <div class="position-relative">
+
+                                    <img src="vintage4.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+
+                                <div class="card-body p-3">
+
+                                    <h5 class="card-title"> Heritage Smoky</h5>
+                                    <p class="card-text">
+                                        Bold & classic | Made for elegant occasions.
+                                    </p>
+                                    <p class="star"> ⭐⭐⭐⭐⭐ 5.0</p>
+                                    <p class="rs"> RS.20,000</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 5 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width:  90%;">
+                                <div class="position-relative">
+
+                                    <img src="vintage5.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+
+                                <div class="card-body p-3">
+
+                                    <h5 class="card-title">Vintage Elite</h5>
+                                    <p class="card-text">
+                                        Premium & refined | Made for classic lovers.
+                                    </p>
+                                    <p class="star">⭐⭐⭐⭐ 4.0</p>
+                                    <p class="rs">RS.12,500</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 6 -->
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="border" style="width:  90%;">
+                                <div class="position-relative">
+
+                                    <img src="vintage6.jpg" class="img-fluid rounded-start w-100" alt="Watch">
+
+                                    <span class="position-absolute top-0 start-0 m-3 badge bg-dark" id="move">
+                                        VINTAGE
+                                    </span>
+
+                                </div>
+                                <div class="card-body p-3">
+                                    <h5 class="card-title">Classic Black</h5>
+                                    <p class="card-text">
+                                        Sleek & timeless | Perfect for smart style.
+                                    </p>
+                                    <p class="star">⭐⭐⭐⭐ 4.0</p>
+                                    <p class="rs">RS.19,000</p>
+                                    <a href=""><button class="btn btn-dark">View Details ➜</button></a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <!-- shown by JS when search finds nothing -->
+                    <div id="noResults">No watches match your search.</div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+        <!-- pAGE -->
+        <div class="container">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item"><a href="luxury.html" class="page-link">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="smart.html">1</a></li>
+                    <li class="page-item ">
+                        <a class="page-link" href="luxury.html">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="vintage.html">3</a></li>
+
+                </ul>
+            </nav>
+        </div>
+        <!-- footer -->
+        <footer class="footer">
+
+            <div class="footer-content">
+
+                <div class="footer-info">
+                    <h2>ALBERTO</h2>
+                    <p>Luxury watches crafted with timeless style and elegance.</p>
+
+                    <h4>Contact</h4>
+                     <p> Karachi, Pakistan</p>
+            <p> +92 300 1234567</p>
+            <p> info@alberto.com</p>
+
+                    <h4>Links</h4>
+                    <a href="home.html">Home</a> <br>
+                    <a href="about.html">About Us</a> <br>
+                    <a href="features.html">Features</a> <br>
+                    <a href="contact.html">Contact Us</a> <br>
+                </div>
+
+                <div class="footer-map">
+                    <h3>Find Us</h3>
+
+                    <iframe src="https://www.google.com/maps?q=Karachi,Pakistan&output=embed" width="100%" height="250"
+                        style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ALBERTO. All Rights Reserved.</p>
+            </div>
+
+        </footer>
+    </div>
+
+    <!-- scroll to top -->
+    <button type="button" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+
+    <!-- View Details modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content dark-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailTitle">Watch</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="detail-grid">
+                        <img id="detailImg" src="" alt="Watch">
+                        <div>
+                            <span class="badge bg-secondary mb-2" id="detailBadge">VINTAGE</span>
+                            <p class="card-text" id="detailDesc"></p>
+                            <p id="detailRating"></p>
+                            <p class="detail-price" id="detailPrice"></p>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button type="button" class="btn btn-warning" id="detailAddBtn">Add to Cart 🛒</button>
+                                <button type="button" class="btn btn-outline-light" id="detailWishBtn">♡ Wishlist</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content dark-modal">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cartTitle">Your Cart</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="cartBody"></div>
+                <div class="modal-footer justify-content-between">
+                    <strong>Total: <span class="text-warning" id="cartTotal">RS. 0</span></strong>
+                    <button type="button" class="btn btn-outline-light btn-sm" id="clearCartBtn">Clear cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- toast -->
+    <div class="toast-container position-fixed bottom-0 start-0 p-3" style="z-index: 1100;">
+        <div id="appToast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite"
+            aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastMsg"></div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+      <script>
+/* ---------- Scroll fade-in (your original code) ---------- */
+const items = document.querySelectorAll(".carousel-item");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+        } else {
+            entry.target.classList.remove("show");
+        }
+
+    });
+}, {
+    threshold: 0.2
+});
+
+items.forEach((item) => {
+    observer.observe(item);
+});
+
+/* ---------- Shop features ---------- */
+(function () {
+    const $ = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+    const fmt = (n) => "RS. " + n.toLocaleString("en-US");
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[c]));
+
+    // localStorage can be blocked, so always wrap it
+    function load(key, fallback) {
+        try {
+            const v = JSON.parse(localStorage.getItem(key));
+            return v === null || v === undefined ? fallback : v;
+        } catch (e) { return fallback; }
+    }
+    function save(key, val) {
+        try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) { /* ignore */ }
+    }
+
+    // Same keys as smart.html and luxury.html, so the cart and wishlist are shared between pages
+    let cart = load("alberto_cart", {});         // { name: {name, price, img, qty} }
+    let wishlist = load("alberto_wishlist", []); // [name, name, ...]
+
+    const detailModal = new bootstrap.Modal($("#detailModal"));
+    const cartModal = new bootstrap.Modal($("#cartModal"));
+    const toastEl = $("#appToast");
+
+    function toast(msg) {
+        $("#toastMsg").textContent = msg;
+        bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 1800 }).show();
+    }
+
+    /* ----- Build product list from the cards already on the page ----- */
+    const products = $$(".carousel-item .col-lg-4").map((col) => {
+        const box = $(".border", col);
+        const imgEl = $(".position-relative img", box);
+        return {
+            col: col,
+            box: box,
+            name: $(".card-title", box).textContent.trim(),
+            desc: $(".card-text", box).textContent.replace(/\s+/g, " ").trim(),
+            ratingText: $(".star", box).textContent.replace(/\s+/g, " ").trim(),
+            price: parseInt($(".rs", box).textContent.replace(/[^\d]/g, ""), 10) || 0,
+            img: imgEl.getAttribute("src"),
+            badge: $(".badge", box) ? $(".badge", box).textContent.trim() : ""
+        };
+    });
+
+    let currentProduct = null;
+
+    /* ----- Add the heart + add-to-cart button to every card ----- */
+    products.forEach((p) => {
+        // wishlist heart
+        const heart = document.createElement("button");
+        heart.type = "button";
+        heart.className = "wish-btn";
+        heart.setAttribute("aria-label", "Add " + p.name + " to wishlist");
+        heart.textContent = "♡";
+        heart.addEventListener("click", () => toggleWish(p.name));
+        $(".position-relative", p.box).appendChild(heart);
+        p.heart = heart;
+
+        // View Details (the existing empty link)
+        const link = $("a", $(".card-body", p.box));
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            openDetails(p);
+        });
+
+        // add to cart button
+        const addBtn = document.createElement("button");
+        addBtn.type = "button";
+        addBtn.className = "btn btn-dark d-block mt-2";
+        addBtn.textContent = "Add to Cart 🛒";
+        addBtn.addEventListener("click", () => addToCart(p));
+        link.insertAdjacentElement("afterend", addBtn);
+    });
+
+    /* ----- Wishlist ----- */
+    function renderWish() {
+        products.forEach((p) => {
+            const on = wishlist.includes(p.name);
+            p.heart.classList.toggle("active", on);
+            p.heart.textContent = on ? "♥" : "♡";
+        });
+        if (currentProduct) {
+            const on = wishlist.includes(currentProduct.name);
+            $("#detailWishBtn").textContent = (on ? "♥" : "♡") + " Wishlist";
+        }
+    }
+
+    function toggleWish(name) {
+        const i = wishlist.indexOf(name);
+        if (i === -1) {
+            wishlist.push(name);
+            toast(name + " added to wishlist");
+        } else {
+            wishlist.splice(i, 1);
+            toast(name + " removed from wishlist");
+        }
+        save("alberto_wishlist", wishlist);
+        renderWish();
+    }
+
+    /* ----- Cart ----- */
+    function addToCart(p) {
+        if (cart[p.name]) {
+            cart[p.name].qty += 1;
+        } else {
+            cart[p.name] = { name: p.name, price: p.price, img: p.img, qty: 1 };
+        }
+        save("alberto_cart", cart);
+        renderCart(true);
+        toast(p.name + " added to cart");
+    }
+
+    function renderCart(bump) {
+        const list = Object.values(cart);
+        const count = list.reduce((sum, it) => sum + it.qty, 0);
+        const total = list.reduce((sum, it) => sum + it.qty * it.price, 0);
+
+        const badge = $("#cartCount");
+        badge.textContent = count;
+        if (bump) {
+            badge.classList.remove("bump");
+            void badge.offsetWidth; // restart animation
+            badge.classList.add("bump");
+        }
+
+        $("#cartTotal").textContent = fmt(total);
+        $("#clearCartBtn").style.display = list.length ? "" : "none";
+
+        $("#cartBody").innerHTML = list.length
+            ? list.map((it) => `
+                <div class="cart-item">
+                    <img src="${esc(it.img)}" alt="${esc(it.name)}">
+                    <div class="cart-item-info">
+                        <div>${esc(it.name)}</div>
+                        <div class="cart-item-price">${fmt(it.price)}</div>
+                    </div>
+                    <button class="qty-btn" data-act="dec" data-name="${esc(it.name)}" aria-label="Decrease quantity">−</button>
+                    <span>${it.qty}</span>
+                    <button class="qty-btn" data-act="inc" data-name="${esc(it.name)}" aria-label="Increase quantity">+</button>
+                    <button class="qty-btn" data-act="rm" data-name="${esc(it.name)}" aria-label="Remove item">✕</button>
+                </div>`).join("")
+            : '<p class="text-center text-secondary my-4">Your cart is empty.</p>';
+    }
+
+    $("#cartBody").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-act]");
+        if (!btn) return;
+        const name = btn.dataset.name;
+        const item = cart[name];
+        if (!item) return;
+
+        if (btn.dataset.act === "inc") item.qty += 1;
+        if (btn.dataset.act === "dec") item.qty -= 1;
+        if (btn.dataset.act === "rm" || item.qty <= 0) delete cart[name];
+
+        save("alberto_cart", cart);
+        renderCart(false);
+    });
+
+    $("#clearCartBtn").addEventListener("click", () => {
+        cart = {};
+        save("alberto_cart", cart);
+        renderCart(false);
+    });
+
+    $("#cartBtn").addEventListener("click", () => cartModal.show());
+
+    /* ----- View Details modal ----- */
+    function openDetails(p) {
+        currentProduct = p;
+        $("#detailTitle").textContent = p.name;
+        $("#detailImg").src = p.img;
+        $("#detailImg").alt = p.name;
+        $("#detailBadge").textContent = p.badge;
+        $("#detailDesc").textContent = p.desc;
+        $("#detailRating").textContent = p.ratingText;
+        $("#detailPrice").textContent = fmt(p.price);
+        renderWish();
+        detailModal.show();
+    }
+
+    $("#detailAddBtn").addEventListener("click", () => {
+        if (currentProduct) addToCart(currentProduct);
+    });
+    $("#detailWishBtn").addEventListener("click", () => {
+        if (currentProduct) toggleWish(currentProduct.name);
+    });
+
+    /* ----- Search ----- */
+    const searchInput = $("#searchInput");
+    const noResults = $("#noResults");
+
+    function applySearch() {
+        const q = searchInput.value.trim().toLowerCase();
+        let visible = 0;
+        products.forEach((p) => {
+            const match = p.name.toLowerCase().includes(q);
+            p.col.classList.toggle("d-none", !match);
+            if (match) visible++;
+        });
+        noResults.style.display = visible === 0 ? "block" : "none";
+    }
+    searchInput.addEventListener("input", applySearch);
+
+    /* ----- Navbar style + scroll-to-top ----- */
+    const navbar = $(".navbar");
+    const topBtn = $("#scrollTopBtn");
+
+    function onScroll() {
+        const y = window.scrollY || document.documentElement.scrollTop;
+        navbar.classList.toggle("scrolled", y > 40);
+        topBtn.classList.toggle("visible", y > 300);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    topBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    onScroll();
+
+    /* ----- Initial render ----- */
+    renderWish();
+    renderCart(false);
+})();
+</script>
+
+</body>
+
+</html>
