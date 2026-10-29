@@ -217,13 +217,18 @@
         padding-top: 20px;
         color: #aaa;
     }
- .carousel-item {
-    opacity: 0;
-    transform: translateY(80px);
-    transition: all 1.2s ease;
+.carousel-item {
+    opacity: 1;
+    transform: none;
 }
 
-.carousel-item.show {
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.show {
     opacity: 1;
     transform: translateY(0);
 }
@@ -889,26 +894,24 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
    <script>
+/* ---------- Scroll fade-in (per card) ---------- */
+const revealCards = document.querySelectorAll(".carousel-item .col-lg-4");
+revealCards.forEach((c) => c.classList.add("reveal"));
 
-const items = document.querySelectorAll(".carousel-item");
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        } else {
-            entry.target.classList.remove("show");
-        }
-
-    });
-}, {
-    threshold: 0.2
-});
-
-items.forEach((item) => {
-    observer.observe(item);
-});
+    revealCards.forEach((c) => observer.observe(c));
+} else {
+    revealCards.forEach((c) => c.classList.add("show"));
+}
 
 /*Shop features*/
 (function () {
